@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 106.53.74.231:8848
+  application:
+    name: shopping-third-party
+
+server:
+  port: 30000

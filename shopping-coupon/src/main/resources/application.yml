@@ -4,6 +4,12 @@ spring:
     password: root
     url: jdbc:mysql://111.231.72.163:3306/shopping-sms
     driver-class-name: com.mysql.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 106.53.74.231:8848
+  application:
+    name: shopping-coupon
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
@@ -11,3 +17,4 @@ mybatis-plus:
       id-type: auto
 server:
   port: 7000
+

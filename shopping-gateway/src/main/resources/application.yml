@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product_route
+          uri: lb://shopping-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*),$\{segment}
+## http://localhost:88/api/product/category/list/tree
+## http://shopping-product/product/category/list/tree
+
+        - id: product_route
+          uri: lb://shopping-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty(?<segment>/?.*),$\{segment}
+
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*),/renren-fast/$\{segment}
+## 前端项目，/api    http://localhost:8080/renren-fast/captcha.jpg?uuid=51e905d7-abb0-4ff2-8f9f-c372e3f7ccf7
+

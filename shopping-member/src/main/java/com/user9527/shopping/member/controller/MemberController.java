@@ -3,6 +3,7 @@ package com.user9527.shopping.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.user9527.shopping.member.feign.CouponServiceFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,19 @@ import com.user9527.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CouponServiceFeign couponServiceFeign;
+
+    @RequestMapping("/coupons")
+    public R test(){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setNickname("李四");
+
+        R coupons = couponServiceFeign.memberCoupons();
+
+        return R.ok().put("member",memberEntity).put("coupons",coupons.get("coupons"));
+    }
 
     /**
      * 列表
