@@ -1,9 +1,15 @@
 package com.user9527.shopping.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
+import com.user9527.common.valid.AddGroup;
+import com.user9527.common.valid.UpdateGroup;
+import com.user9527.common.valid.UpdateStatusGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +22,7 @@ import com.user9527.shopping.product.service.BrandService;
 import com.user9527.common.utils.PageUtils;
 import com.user9527.common.utils.R;
 
+import javax.validation.Valid;
 
 
 /**
@@ -56,9 +63,8 @@ public class BrandController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save( @RequestBody BrandEntity brand){
-		brandService.save(brand);
-
+    public R save(@Validated(value = AddGroup.class) @RequestBody BrandEntity brand/*, BindingResult result*/){
+        brandService.save(brand);
         return R.ok();
     }
 
@@ -66,8 +72,18 @@ public class BrandController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody BrandEntity brand){
+    public R update(@Validated(UpdateGroup.class)@RequestBody BrandEntity brand){
 		brandService.updateById(brand);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改状态
+     */
+    @RequestMapping("/update/status")
+    public R updateStatus(@Validated(UpdateStatusGroup.class)@RequestBody BrandEntity brand){
+        brandService.updateById(brand);
 
         return R.ok();
     }
