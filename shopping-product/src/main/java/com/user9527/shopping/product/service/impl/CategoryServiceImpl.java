@@ -7,8 +7,11 @@ import com.user9527.common.utils.PageUtils;
 import com.user9527.common.utils.Query;
 import com.user9527.shopping.product.dao.CategoryDao;
 import com.user9527.shopping.product.entity.CategoryEntity;
+import com.user9527.shopping.product.service.CategoryBrandRelationService;
 import com.user9527.shopping.product.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,9 @@ import java.util.stream.Collectors;
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Autowired
+    private CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -51,6 +57,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void removeMenuByIds(List<Long> asList) {
         //TODO  1，检查当前删除的菜单，是否被其他地方引用 （逻辑删除）
         baseMapper.deleteBatchIds(asList);
+    }
+
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
     }
 
     //递归查找所有菜单的子菜单
