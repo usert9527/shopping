@@ -3,6 +3,7 @@ package com.user9527.shopping.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.user9527.shopping.product.vo.AttrRespVO;
 import com.user9527.shopping.product.vo.AttrVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,16 +28,19 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    // /product/attr/sale/list/{catelogId}
+
     /**
      * 查询属性详情（所属三级分类，分组）
      * @param params
-     * @param catelogId
+     * @param catelogId 路径变量
      * @return
      */
-    @GetMapping("/base/list/{catelogId}")
+    @GetMapping("/{attrType}/list/{catelogId}")
     public R queryBaseAttrPage(@RequestParam Map<String, Object> params,
-                               @PathVariable("catelogId") Long catelogId){
-        PageUtils page = attrService.queryBaseAttrPage(params, catelogId);
+                               @PathVariable("catelogId") Long catelogId,
+                               @PathVariable("attrType") String type){
+        PageUtils page = attrService.queryBaseAttrPage(params, catelogId, type);
         return R.ok().put("page", page);
     }
 
@@ -56,9 +60,10 @@ public class AttrController {
      */
     @RequestMapping("/info/{attrId}")
     public R info(@PathVariable("attrId") Long attrId){
-		AttrEntity attr = attrService.getById(attrId);
+		//AttrEntity attr = attrService.getById(attrId);
+        AttrRespVO attrRespVO = attrService.getAttrInfo(attrId);
 
-        return R.ok().put("attr", attr);
+        return R.ok().put("attr", attrRespVO);
     }
 
     /**
@@ -75,8 +80,8 @@ public class AttrController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody AttrEntity attr){
-		attrService.updateById(attr);
+    public R update(@RequestBody AttrVO attrVO){
+		attrService.updateAttr(attrVO);
 
         return R.ok();
     }
