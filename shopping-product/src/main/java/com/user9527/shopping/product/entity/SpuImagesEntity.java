@@ -1,5 +1,6 @@
 package com.user9527.shopping.product.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -22,7 +23,7 @@ public class SpuImagesEntity implements Serializable {
 	/**
 	 * id
 	 */
-	@TableId
+	@TableId()
 	private Long id;
 	/**
 	 * spu_id

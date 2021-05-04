@@ -28,6 +28,11 @@ public class AttrEntity implements Serializable {
 	 * 属性名
 	 */
 	private String attrName;
+
+	/**
+	 * 值类型[0-为单个值，1-可以选择多个值]
+	 */
+	private Integer valueType;
 	/**
 	 * 是否需要检索[0-不需要，1-需要]
 	 */
