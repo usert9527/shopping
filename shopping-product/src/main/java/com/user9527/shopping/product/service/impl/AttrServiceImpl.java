@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -186,17 +187,29 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Override
     public List<AttrEntity> getAttrRelation(Long attrGroupId) {
 
-        List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));
+        List<AttrAttrgroupRelationEntity> entities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));
 
-        List<Long> attrIds = relationEntities.stream().map(item -> {
-            return item.getAttrId();
+        List<Long> attrIds = entities.stream().map((attr) -> {
+            return attr.getAttrId();
         }).collect(Collectors.toList());
 
         if(attrIds == null || attrIds.size() == 0){
             return null;
         }
-        List<AttrEntity> attrEntities = attrDao.selectList(new QueryWrapper<AttrEntity>().in("attr_id", attrIds));
-        return attrEntities;
+        Collection<AttrEntity> attrEntities = this.listByIds(attrIds);
+        return (List<AttrEntity>) attrEntities;
+//
+//        List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));
+//
+//        List<Long> attrIds = relationEntities.stream().map(item -> {
+//            return item.getAttrId();
+//        }).collect(Collectors.toList());
+//
+//        if(attrIds == null || attrIds.size() == 0){
+//            return null;
+//        }
+//        List<AttrEntity> attrEntities = attrDao.selectList(new QueryWrapper<AttrEntity>().in("attr_id", attrIds));
+//        return attrEntities;
     }
 
     @Override

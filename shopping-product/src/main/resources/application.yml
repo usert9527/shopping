@@ -1,15 +1,21 @@
 spring:
   datasource:
     username: root
-    password: root
-    url: jdbc:mysql://111.231.72.163:3306/shopping-pms
+    password: aqyxyynew@!520
+    url: jdbc:mysql://cdb-lgm4rcto.cd.tencentcdb.com:10129/gulimall_pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      connection-timeout: 60000
+      validation-timeout: 3000
+      max-lifetime: 60000
   cloud:
     nacos:
       discovery:
-        server-addr: 106.53.74.231:8848
+        server-addr: 127.0.0.1:8848
   application:
     name: shopping-product
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
@@ -17,8 +23,10 @@ mybatis-plus:
       id-type: auto
 
 server:
-  port: 10001
+  port: 10005
 
 logging:
   level:
     com.user9527.shopping.product: debug
+
+

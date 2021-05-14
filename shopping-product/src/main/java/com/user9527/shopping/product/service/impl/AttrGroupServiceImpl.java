@@ -66,22 +66,34 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Override
     public List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCatelogId(Long catelogId) {
-        // 查询所有分组
-        List<AttrGroupEntity> groupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
+//        // 查询所有分组
+//        List<AttrGroupEntity> groupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
+//
+//        List<AttrGroupWithAttrsVO> collect = groupEntities.stream().map(groupEntitie -> {
+//
+//            AttrGroupWithAttrsVO attrGroupWithAttrsVO = new AttrGroupWithAttrsVO();
+//            BeanUtils.copyProperties(groupEntitie, attrGroupWithAttrsVO);
+//
+//            List<AttrEntity> attrEntities = attrService.getAttrRelation(attrGroupWithAttrsVO.getAttrGroupId());
+//            attrGroupWithAttrsVO.setAttrs(attrEntities);
+//
+//            return attrGroupWithAttrsVO;
+//        }).collect(Collectors.toList());
+//
+//        return collect;
 
-        List<AttrGroupWithAttrsVO> collect = groupEntities.stream().map(groupEntitie -> {
+        //1、查询分组信息
+        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
 
-            AttrGroupWithAttrsVO attrGroupWithAttrsVO = new AttrGroupWithAttrsVO();
-            BeanUtils.copyProperties(groupEntitie, attrGroupWithAttrsVO);
-
-            List<AttrEntity> attrEntities = attrService.getAttrRelation(attrGroupWithAttrsVO.getAttrGroupId());
-            attrGroupWithAttrsVO.setAttrs(attrEntities);
-
-            return attrGroupWithAttrsVO;
+        //2、查询所有属性
+        List<AttrGroupWithAttrsVO> collect = attrGroupEntities.stream().map(group -> {
+            AttrGroupWithAttrsVO attrsVo = new AttrGroupWithAttrsVO();
+            BeanUtils.copyProperties(group,attrsVo);
+            List<AttrEntity> attrs = attrService.getAttrRelation(attrsVo.getAttrGroupId());
+            attrsVo.setAttrs(attrs);
+            return attrsVo;
         }).collect(Collectors.toList());
-
         return collect;
-
     }
 
 }
