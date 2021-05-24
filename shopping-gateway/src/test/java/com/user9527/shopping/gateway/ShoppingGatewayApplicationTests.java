@@ -1,11 +1,11 @@
-package com.user9527.shopping.ware;
+package com.user9527.shopping.gateway;
 
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ShoppingWareApplicationTests {
+class ShoppingGatewayApplicationTests {
 
     @Test
     void contextLoads() {

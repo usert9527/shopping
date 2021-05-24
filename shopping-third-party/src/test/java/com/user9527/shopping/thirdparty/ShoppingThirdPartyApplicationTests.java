@@ -1,11 +1,11 @@
-package com.user9527.shopping.ware;
+package com.user9527.shopping.thirdparty;
 
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ShoppingWareApplicationTests {
+class ShoppingThirdPartyApplicationTests {
 
     @Test
     void contextLoads() {

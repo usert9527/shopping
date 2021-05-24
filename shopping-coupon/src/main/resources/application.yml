@@ -1,13 +1,13 @@
 spring:
   datasource:
     username: root
-    password: root
-    url: jdbc:mysql://111.231.72.163:3306/shopping-sms
+    password: aqyxyynew@!520
+    url: jdbc:mysql://cdb-lgm4rcto.cd.tencentcdb.com:10129/gulimall_sms?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
   cloud:
     nacos:
       discovery:
-        server-addr: 106.53.74.231:8848
+        server-addr: 127.0.0.1:8848
   application:
     name: shopping-coupon
 mybatis-plus:
