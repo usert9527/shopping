@@ -5,14 +5,15 @@ package com.user9527.common.exception;
  * @version 1.0
  * @date 2021/3/27 20:11
  */
-public enum BizCodeEnume {
+public enum BizCodeEnum {
     UNKNOW_EXCEPTION(10000,"系统未知异常"),
-    VAILD_EXCEPTION(10001,"参数格式校验失败");
+    VAILD_EXCEPTION(10001,"参数格式校验失败"),
+    PRODUCT_UP_EXCEPTION(11000,"商品上架异常"),;
 
     private int code;
     private String msg;
 
-    BizCodeEnume(int code,String msg){
+    BizCodeEnum(int code, String msg){
         this.code = code;
         this.msg = msg;
     }

@@ -3,6 +3,9 @@ package com.user9527.shopping.product.dao;
 import com.user9527.shopping.product.entity.AttrEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 商品属性
@@ -13,5 +16,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AttrDao extends BaseMapper<AttrEntity> {
-	
+
+    /**
+     *  查询所有可以被用来检索的规格属性
+     * @param attrIds
+     * @return
+     */
+    List<Long> selectSearchAttrIds(@Param("attrIds") List<Long> attrIds);
 }
