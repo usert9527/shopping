@@ -18,8 +18,8 @@ import java.util.Map;
  */
 @Slf4j
 //@ResponseBody
-//@ControllerAdvice(basePackages = "com.user9527.shopping.product.controller")
-@RestControllerAdvice(basePackages = "com.user9527.shopping.product.controller")
+//@ControllerAdvice(basePackages = "com.user9527.shopping.product.app")
+@RestControllerAdvice(basePackages = "com.user9527.shopping.product.app")
 public class ShoppingExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

@@ -5,7 +5,7 @@ spring:
         - id: product_route
           uri: lb://shopping-product
           predicates:
-            - Path=/api/product/**
+            - Path=/api/product/**,/hello,/index/catalog.json
           filters:
             - RewritePath=/api(?<segment>/?.*),$\{segment}
 ## http://localhost:88/api/product/category/list/tree
