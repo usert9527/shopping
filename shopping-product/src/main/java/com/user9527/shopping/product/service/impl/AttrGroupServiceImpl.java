@@ -3,6 +3,7 @@ package com.user9527.shopping.product.service.impl;
 import com.user9527.shopping.product.entity.AttrEntity;
 import com.user9527.shopping.product.service.AttrService;
 import com.user9527.shopping.product.vo.AttrGroupWithAttrsVO;
+import com.user9527.shopping.product.vo.SpuItemAttrGroupVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,13 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             return attrsVo;
         }).collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId) {
+        AttrGroupDao baseMapper = this.baseMapper;
+        List<SpuItemAttrGroupVo> spuItemAttrGroupVos = baseMapper.getAttrGroupWithAttrsBySpuId(spuId, catalogId);
+        return spuItemAttrGroupVos;
     }
 
 }
