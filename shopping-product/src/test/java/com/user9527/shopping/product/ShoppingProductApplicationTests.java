@@ -1,8 +1,11 @@
 package com.user9527.shopping.product;
 
 import com.alibaba.fastjson.JSON;
-import com.user9527.shopping.product.entity.BrandEntity;
+import com.user9527.shopping.product.service.AttrGroupService;
 import com.user9527.shopping.product.service.BrandService;
+import com.user9527.shopping.product.service.SkuSaleAttrValueService;
+import com.user9527.shopping.product.vo.SkuItemSaleAttrVo;
+import com.user9527.shopping.product.vo.SpuItemAttrGroupVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.redisson.api.RedissonClient;
@@ -10,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,25 @@ public class ShoppingProductApplicationTests {
 
     @Autowired
     RedissonClient redissonClient;
+
+    @Autowired
+    AttrGroupService attrGroupService;
+
+    @Autowired
+    SkuSaleAttrValueService skuSaleAttrValueService;
+
+    @Test
+    public void skuSaleAttrValue(){
+        List<SkuItemSaleAttrVo> saleAttrsBySpuId = skuSaleAttrValueService.getSaleAttrsBySpuId(16L);
+
+        System.out.println(saleAttrsBySpuId);
+    }
+
+    @Test
+    public void attrGroup(){
+        List<SpuItemAttrGroupVo> attrGroupWithAttrsBySpuId = attrGroupService.getAttrGroupWithAttrsBySpuId(16L, 225L);
+        System.out.println(attrGroupWithAttrsBySpuId);
+    }
 
     @Test
     public void uploadTest() throws FileNotFoundException {

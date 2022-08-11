@@ -1,5 +1,6 @@
 package com.user9527.shopping.product.web;
 
+import com.alibaba.fastjson.JSON;
 import com.user9527.shopping.product.entity.CategoryEntity;
 import com.user9527.shopping.product.service.CategoryService;
 import com.user9527.shopping.product.vo.Catelog2VO;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -170,6 +172,32 @@ public class IndexController {
         RCountDownLatch anyCountDownLatch = redisson.getCountDownLatch("anyCountDownLatch");
         anyCountDownLatch.countDown();
         return id + "班的人都走了 ";
+    }
+
+    private static final Random RAND = new Random();
+
+    public static void getReward(){
+        for (int i = 0; i < 10; i++) {
+            System.out.println(RAND.nextInt(100));
+        }
+    }
+
+    public static void main(String[] args) {
+        firstTime();
+    }
+
+    /**
+     * 首次闯关
+     */
+    public static void firstTime(){
+        String s = "[\n" +
+                "{\"type\":1,\"rate\":10,\"info\":[{\"code\":201,\"name\":\"腰带\"},{\"code\":202,\"name\":\"肩带\"}]},{\"type\":2,\"rate\":20,\"info\":[{\"code\":201,\"name\":\"腰带\"},{\"code\":202,\"name\":\"肩带\"}]}\n" +
+                "]";
+
+        List<One> ones = JSON.parseArray(s, One.class);
+        System.out.println(ones.toString());
+
+
     }
 
 }
